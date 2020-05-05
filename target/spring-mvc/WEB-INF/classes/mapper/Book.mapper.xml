@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.aoki.mapper.BookMapper">
+	<!-- 开启本mapper的namespace下的二级缓存
+	type:指定cache接口的实现类的类型,不写type属性，mybatis默认使用PerpetualCache;
+	要和ehcache整合，需要配置type为ehcache实现cache接口的类型 -->
+	<!--<cache type= "org.mybatis.caches.ehcache.EhcacheCache" ></cache>-->
+	<cache type="org.apache.ibatis.cache.impl.PerpetualCache"></cache>
+	
+	<select id="queryAll" resultType="Book">
+		SELECT
+			book_id,
+			name,
+			number
+		FROM
+			book
+		ORDER BY
+			book_id
+		LIMIT #{offset}, #{limit}
+	</select>
+
+	<delete id="delBook">
+		DELETE FROM book WHERE book_id = #{bookId}
+	</delete>
+</mapper>

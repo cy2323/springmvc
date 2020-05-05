@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" 
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://www.springframework.org/schema/context
+	http://www.springframework.org/schema/context/spring-context.xsd
+	http://www.springframework.org/schema/mvc
+	http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd">
+	 <!-- 配置SpringMVC -->
+	 <!-- 1.开启SpringMVC注解模式 -->
+	 <!-- 简化配置：
+		(1)自动注册DefaultAnootationHandlerMapping,AnotationMethodHandlerAdapter 
+		(2)提供一些列：数据绑定，数字和日期的format @NumberFormat, @DateTimeFormat, xml,json默认读写支持 
+	 -->
+	 <mvc:annotation-driven />
+	
+	 <!-- 2.静态资源默认servlet配置
+		(1)加入对静态资源的处理：js,gif,png
+		(2)允许使用"/"做整体映射
+	 -->
+	 <mvc:default-servlet-handler/>
+
+	<!-- 或者也可以用Java注解的方式来设定
+		@Configuration
+		@EnableWebMvc
+		public class WebConfig implements WebMvcConfigurer {
+
+			@Override
+			public void addResourceHandlers(ResourceHandlerRegistry registry) {
+				registry.addResourceHandler("/css/**")
+					.addResourceLocations("/css", "classpath:/xxxxx/")
+					.setCachePeriod(31556926);
+			}
+		}
+	-->
+	 <mvc:resources location="/css/" mapping="/css/**" />
+	 <mvc:resources location="/js/" mapping="/js/**" />
+	 <mvc:resources location="/icons/" mapping="/icons/**" />
+	 
+	 <!-- 3.配置jsp 显示ViewResolver -->
+	 <!-- InternalResourceViewResolver：用于支持Servlet、JSP视图解析；-->
+     <!-- viewClass：JstlView表示JSP模板页面需要使用JSTL标签库，classpath中必须包含jstl的相关jar包；-->
+	 <!-- prefix和suffix：查找视图页面的前缀和后缀（前缀[逻辑视图名]后缀），-->
+	 <!-- 比如传进来的逻辑视图名为hello，则该该jsp视图页面应该存放在“WEB-INF/jsp/hello.jsp”；-->
+	 <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+	 	<!--<property name="viewClass" value="org.springframework.web.servlet.view.JstlView" />-->
+	 	<property name="prefix" value="/WEB-INF/jsp/" />
+	 	<property name="suffix" value=".jsp" />
+	 </bean>
+	 
+	 <!-- 4.扫描web相关的bean -->
+	 <context:component-scan base-package="com.aoki.controller" />
+</beans>

@@ -1,0 +1,46 @@
+<!DOCTYPE web-app PUBLIC
+ "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
+ "http://java.sun.com/dtd/web-app_2_3.dtd" >
+
+<web-app>
+
+  <!--【过滤器】Spring解决乱码的配置-->
+  <filter>
+    <filter-name>encodingfilter</filter-name>
+    <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+    <init-param>
+      <param-name>encoding</param-name>
+      <param-value>utf-8</param-value>
+    </init-param>
+  </filter>
+  <filter-mapping>
+    <filter-name>encodingfilter</filter-name>
+    <url-pattern>/</url-pattern>
+  </filter-mapping>
+
+  <servlet>
+    <servlet-name>springmvc</servlet-name>
+    <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+    <!-- 配置springMVC需要加载的配置文件:
+				spring-mapper.xml,
+				spring-service.xml,
+				spring-controller.xml
+
+			Mybatis - > spring -> springmvc
+		 -->
+    <init-param>
+      <param-name>contextConfigLocation</param-name>
+      <param-value>classpath:spring/spring-*.xml</param-value>
+    </init-param>
+    <!-- load-on-startup：表示启动容器时初始化该Servlet； -->
+    <load-on-startup>1</load-on-startup>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>springmvc</servlet-name>
+    <!-- 默认匹配所有的请求 -->
+    <!-- url-pattern：表示哪些请求交给Spring Web MVC处理， “/” 是用来定义默认servlet映射的。 -->
+    <!-- 也可以如“*.html”表示拦截所有以html为扩展名的请求。 -->
+    <url-pattern>/</url-pattern>
+  </servlet-mapping>
+
+</web-app>
