@@ -75,7 +75,7 @@ public class BookController {
 	/**************************************************************************************************/
 
 	/**
-	 *	查询出100以内的所有book记录
+	 * 查询出100以内的所有book记录
 	 * @param model
 	 * @return String
 	 */
@@ -86,6 +86,11 @@ public class BookController {
 		return "list";					// WEB-INF/jsp/"list".jsp
 	}
 
+	/**
+	 * 删除指定id的book记录
+	 * @param bookId
+	 * @return
+	 */
 	@RequestMapping(value = "/{bookId}/delete", method = RequestMethod.GET)
 	private String delBook(@PathVariable("bookId") Long bookId){
 
