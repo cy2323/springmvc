@@ -7,12 +7,16 @@ import lombok.ToString;
 
 import java.io.Serializable;
 
+/**
+ * MyBatis要求:
+ * 如果需要开启二级缓存的话，返回的JavaBean对象必须是序列化的，即要求实现Serializable接口
+ * 如果实体类不实现可序列化接口，使用二级缓存，那么会报下列异常:
+ * org.apache.ibatis.cache.CacheException: Error serializing object.  Cause: java.io.NotSerializableException:
+ */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-// MyBatis要求:
-// 如果需要开启二级缓存的话，返回的JavaBean对象必须是序列化的，即要求实现Serializable接口
 public class Book implements Serializable {
 
 	private long bookId;
