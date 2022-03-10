@@ -8,5 +8,5 @@
 中台：Spring + SpringMVC + MyBatis
 数据库：Mysql
 
-各位有不明白的地方请发邮件给我，我会耐心的给你讲解，共同进步！
-Mail：cy2323@yeah.net
+各位有不明白的地方请邮我，我们一起讨论共同进步！
+E-Mail：cy2323@yeah.net
